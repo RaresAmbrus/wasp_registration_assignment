@@ -19,7 +19,6 @@ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_GPU=OFF 
 make -j3
 sudo make install
 cd ~/software
-rm -rf pcl-1.8.0*
 
 # INSTALL ROS Kinetic
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -35,8 +34,6 @@ source ~/.bashrc
 
 # INSTALL Ceres
 sudo apt-get install -y cmake libgoogle-glog-dev libatlas-base-dev libeigen3-dev
-sudo add-apt-repository ppa:bzindovic/suitesparse-bugfix-1319687
-sudo apt-get update
 sudo apt-get install -y libsuitesparse-dev
 
 cd ~/software
