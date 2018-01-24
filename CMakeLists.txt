@@ -32,3 +32,10 @@ ADD_EXECUTABLE(load_and_view_data include/utils.h
 )
 
 TARGET_LINK_LIBRARIES(load_and_view_data ${Boost_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBRARIES})
+
+ADD_EXECUTABLE(icp_registration include/utils.h
+                                 src/utils.cpp
+                                 src/icp_registration.cpp
+)
+
+TARGET_LINK_LIBRARIES(icp_registration ${Boost_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBRARIES})

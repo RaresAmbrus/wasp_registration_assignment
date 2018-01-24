@@ -36,14 +36,12 @@ int main(int argc, char** argv){
     }
 
     /****************************** VISUALIZE CLOUDS ***************************************/
-    int vp_1, vp_2, vp_3;
     pcl::visualization::PCLVisualizer* pg = new pcl::visualization::PCLVisualizer (argc, argv, "visualize_clouds"); // initialize pcl visualizer
     pg->setCameraPosition(-0.0979963,-6.23402,-3.88424,0.242764,0.415186,1.60075,0.235308,-0.625621,0.743794); // top down view
     pg->addCoordinateSystem(1.0);
 
     std::vector<CloudPtr> all_views = wasp_registration_utils::load_pcds<PointType>(clouds_folder);
     for (int i=0; i<all_views.size(); ++i){
-
         stringstream ss; ss<<"Cloud";ss<<i;
         cout<<"Displaying point cloud "<<i<<endl;
         pg->addPointCloud(all_views[i], ss.str());
