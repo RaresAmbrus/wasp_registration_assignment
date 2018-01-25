@@ -46,3 +46,12 @@ ADD_EXECUTABLE(sift_registration include/utils.h
 )
 
 TARGET_LINK_LIBRARIES(sift_registration ${Boost_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBRARIES})
+
+ADD_EXECUTABLE(ceres_registration include/utils.h
+                                  include/simple_residual.h
+                                  include/scaled_residual.h
+                                 src/utils.cpp
+                                 src/ceres_registration.cpp
+)
+
+TARGET_LINK_LIBRARIES(ceres_registration ${Boost_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBRARIES} ${CERES_LIBRARIES})
