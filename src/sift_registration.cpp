@@ -31,7 +31,7 @@ using namespace std;
 using namespace cv;
 
 void printUsage(){
-    std::cout<<"Usage: wasp_correspondences target_folder"<<std::endl;
+    std::cout<<"Usage: sift_registration target_folder"<<std::endl;
     std::cout<<"Default folder: /home/wasp/wasp_registration/data/wasp_registration/"<<std::endl;
     std::cout<<"Note: this will look for all files matching *.pcd in the target_folder"<<std::endl;
 
