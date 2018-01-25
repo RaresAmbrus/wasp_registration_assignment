@@ -39,3 +39,10 @@ ADD_EXECUTABLE(icp_registration include/utils.h
 )
 
 TARGET_LINK_LIBRARIES(icp_registration ${Boost_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBRARIES})
+
+ADD_EXECUTABLE(sift_registration include/utils.h
+                                 src/utils.cpp
+                                 src/sift_registration.cpp
+)
+
+TARGET_LINK_LIBRARIES(sift_registration ${Boost_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBRARIES})

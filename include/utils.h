@@ -6,6 +6,7 @@
 #include <pcl/visualization/pcl_visualizer.h>
 #include <pcl/common/transforms.h>
 #include <pcl/filters/voxel_grid.h>
+#include <opencv2/features2d.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/range/adaptors.hpp>
 
@@ -36,8 +37,8 @@ namespace wasp_registration_utils{
         std::sort(pcd_files.begin(), pcd_files.end());
 
         std::vector<boost::shared_ptr<pcl::PointCloud<PointType>>> all_pcds;
+        pcl::PCDReader reader;
         for (int i=0; i<pcd_files.size(); ++i){
-            pcl::PCDReader reader;
             boost::shared_ptr<pcl::PointCloud<PointType>> cloud (new pcl::PointCloud<PointType>);
             cout<<"Loading "<<pcd_files[i]<<endl;
             reader.read (folder + "/" + pcd_files[i], *cloud);
@@ -94,7 +95,83 @@ namespace wasp_registration_utils{
         return output;
     }
 
+    /**
+     * @brief create_RGB_and_depth_from_cloud -
+     * @param cloud - input point cloud
+     * @return a pair of cv images, the first one corresponding to the RGB image (type CV_8UC3), and the second one to the depth image (type CV_16UC1).
+     */
+    std::pair<cv::Mat, cv::Mat> create_RGB_and_depth_from_cloud(boost::shared_ptr<pcl::PointCloud<pcl::PointXYZRGB>> cloud);
+
+    /**
+     * @brief get_pcd_index_from_image_keypoint - method which returns the index of a point in a point cloud which corresponds to a cv::Mat keypoint
+     * @param image - cv image
+     * @param kp - cv image keypoint
+     * @return index in the point cloud which corresponds to the keypoint in the cv image
+     */
+    int get_pcd_index_from_image_keypoint(const cv::Mat& image, const cv::KeyPoint& kp);
+
+    /**
+     * @brief get_image_keypoint_from_pcd_index
+     * @param image
+     * @param index
+     * @return
+     */
+    cv::KeyPoint get_image_keypoint_from_pcd_index(const cv::Mat& image, const int& index);
+
+
+    /**
+     * @brief The CorrespondenceStructure struct - used to record PCL correspondences, as well as the indices of the point clouds which generated the correspondences
+     * @param idx1 - the index of the first point cloud
+     * @param idx2 - the index of the second point cloud
+     */
+    struct CorrespondenceStructure{
+        int idx1;
+        int idx2;
+        pcl::Correspondences correspondences;
+
+        CorrespondenceStructure(const int& i1, const int& i2, const pcl::Correspondences& c){
+            idx1 = i1;
+            idx2 = i2;
+            correspondences.assign(c.begin(),c.end());
+        }
+
+        CorrespondenceStructure() : idx1(-1), idx2(-1){
+
+        }
+    };
+
+    /**
+     * @brief save_correspondences_to_file - method which will save a set of correspondences to a file
+     * @param filename - the name of the file where to save the correspondences
+     * @param all_correspondences - the structure containing sets of correspondences between different point clouds
+     */
+    void save_correspondences_to_file(const std::string& filename,
+                                      const std::vector<CorrespondenceStructure>& all_correspondences);
+
+
+    /**
+     * @brief load_correspondences_from_file - method which will load a set from a file
+     * @param filename - name of the file from where to load the correspondences
+     * @return the correspondences
+     */
+    std::vector<CorrespondenceStructure>
+    load_correspondences_from_file(const std::string& filename);
+
+    /**
+     * @brief visualize_correspondences - method which will use opencv to draw correspondences on two images
+     * @param img1 - the first image
+     * @param img2 - the second image
+     * @param correspondences - the correspondences (in PCL format)
+     * @param window_name - the name of the window where to display the images and the correspondences
+     * @param display_timeout - how long to wait until resuming the program. If 0 the program will wait for a keypress
+     */
+    void
+    visualize_correspondences(const cv::Mat& img1, const cv::Mat& img2,
+                              const pcl::Correspondences& correspondences,
+                              const std::string& window_name,
+                              const int& display_timeout);
 }
+
 #endif
 
 
