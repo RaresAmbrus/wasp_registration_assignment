@@ -81,7 +81,7 @@ int main(int argc, char** argv){
     // First step - downsample and filter (i.e. remove points with invalid values) the point clouds
     std::vector<CloudPtr> filtered_views; /// Downsample the input point clouds and store them in this array
     for (int i=0; i<all_views.size(); ++i){
-        /** ----------------- YOUR CODE HERE -------------------------
+        /** ----------------- 1. YOUR CODE HERE -------------------------
           * Fill in the vector filtered_views.
           * Optionally: visualize the effect of downsampling.
           */
@@ -112,14 +112,14 @@ int main(int argc, char** argv){
         /// Use this variable to store the result of registering cloud i+1 with cloud i
         CloudPtr reg_result(new Cloud);
 
-        /** ----------------- YOUR CODE HERE -------------------------
+        /** ----------------- 2. YOUR CODE HERE -------------------------
           * Use ICP to align clouds i and i+1
           */
 
 
 
 
-        /** ----------------- YOUR CODE HERE -------------------------
+        /** ----------------- 3. YOUR CODE HERE -------------------------
           * Update the variable Tt so that it contains the transform which brings the cloud (i+1) into the global frame of reference.
           * (i.e. you should make use of the variable Ti which stores the intermediate transformation between cloud (i+1) and cloud i
           */
