@@ -83,7 +83,9 @@ int main(int argc, char** argv){
     for (int i=0; i<all_views.size(); ++i){
         /** ----------------- 1. YOUR CODE HERE -------------------------
           * Fill in the vector filtered_views.
+          * Note: for downsampling and filtering you should implement and call the method wasp_registration_utils::downsample_and_filter_cloud from utils.h
           * Optionally: visualize the effect of downsampling.
+          *
           */
 
     }
