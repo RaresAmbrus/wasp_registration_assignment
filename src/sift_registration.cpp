@@ -184,7 +184,7 @@ int main(int argc, char** argv){
               * Find the 3D points in the original point clouds which correspond to the 2D image correspondences you calculated.
               * Important: make sure to discard points with invalid depth (e.g. nans or infs).
               * Hint: you may want to use the method wasp_registration_utils::get_pcd_index_from_image_keypoint to convert between image keypoint coordinates and point cloud indices
-              * Note that each element of type DMatch from the matches vector contains a query index and a target index.
+              * Note that each element of type DMatch from the matches vector contains a query index and a train index.
               * Use these to access the correct keypoints from the vectors keypoints_1 and keypoints_2.
               * Store the resulting 3D points in the clouds c1 and c2.
               */
@@ -194,8 +194,8 @@ int main(int argc, char** argv){
             Eigen::Matrix4f Tj = Eigen::Matrix4f::Identity();
             /** ----------------- 5. YOUR CODE HERE -------------------------
              * Use SVD to estimate the transformation between the clouds c2 and c1
-             * Hint: PCL has very nice classes for doing this!
-             * Store the result in the matrix Ti
+             * Hint: PCL has a very nice class for doing this!
+             * Store the result in the matrix Tj
              * Also, store the "global" transform of cloud j in the all_transforms vector
              * (Hint: you should make use of the already computed transform for cloud i).
              */
