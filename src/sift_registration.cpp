@@ -284,7 +284,8 @@ int main(int argc, char** argv){
                 wasp_registration_utils::CorrespondenceStructure new_correspondences(i,j, filtered_correspondences);
                 all_correspondences.push_back(new_correspondences);
             } else {
-
+                cout<<"Warning: the number of correspondences between clouds "<< i <<" and "<< j <<
+                      " is "<< filtered_correspondences.size() << ". Skipping this pair of clouds." << endl;
             }
             pg->removeAllPointClouds(vp_1);
             pg->removeAllPointClouds(vp_2);
